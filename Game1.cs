@@ -10,13 +10,9 @@ public class Game1 : Game
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-   static  byte redValue = 193;
-    static byte greenValue = 105;
-    static byte blueValue = 79;
-     Color realBrown = new Color(redValue, greenValue, blueValue);
-        public Texture2D pixel;
-
-       public Rectangle leftPaddle;
+    private Texture2D pixel;
+    private Rectangle leftPaddle;
+    private Rectangle rightPaddle;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -41,7 +37,7 @@ public class Game1 : Game
             Color.White
         });
         leftPaddle = new Rectangle(100, 100, 30, 100);
-
+        rightPaddle = new Rectangle(700, 100, 30, 100);
         // TODO: use this.Content to load your game content here
     }
 
@@ -58,7 +54,8 @@ public class Game1 : Game
     {
         _spriteBatch.Begin();
         GraphicsDevice.Clear(Color.Black);
-        _spriteBatch.Draw(pixel, leftPaddle, realBrown);
+        _spriteBatch.Draw(pixel, leftPaddle, Color.White);
+        _spriteBatch.Draw(pixel, rightPaddle, Color.White);
         _spriteBatch.End();
 
         // TODO: Add your drawing code here
