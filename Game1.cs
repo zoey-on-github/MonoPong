@@ -11,6 +11,7 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private Texture2D pixel;
+    private Texture2D ballTexture;
     private Rectangle leftPaddle;
     private Rectangle rightPaddle;
     public Game1()
@@ -38,6 +39,7 @@ public class Game1 : Game
         });
         leftPaddle = new Rectangle(100, 100, 30, 100);
         rightPaddle = new Rectangle(700, 100, 30, 100);
+        ballTexture = Content.Load<Texture2D>("circle");
         // TODO: use this.Content to load your game content here
     }
 
@@ -56,6 +58,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         _spriteBatch.Draw(pixel, leftPaddle, Color.White);
         _spriteBatch.Draw(pixel, rightPaddle, Color.White);
+        _spriteBatch.Draw(ballTexture, new Vector2(0, 0), Color.White);
         _spriteBatch.End();
 
         // TODO: Add your drawing code here
