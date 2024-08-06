@@ -44,27 +44,27 @@ public class Game1 : Game {
     private bool paddleCanMove;
     protected override void Update(GameTime gameTime) {
        var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-        /*
-        if (leftPaddle.Top != _graphics.PreferredBackBufferHeight)
-        {
+       if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+           Exit();
+       }
+       rightPaddle.Y = (int)ballPosition.Y;
+        paddleCanMove = true;
+        if (leftPaddle.Top == _graphics.GraphicsDevice.Viewport.Height) {
             paddleCanMove = false;
         }
 
-        if(paddleCanMove) {
-        */
-        if (Keyboard.GetState().IsKeyDown(Keys.Up))
-        {
-            leftPaddle.Y -= (int)(paddleSpeed * delta);
+        if (paddleCanMove) {
+            if (Keyboard.GetState().IsKeyDown(Keys.Up)) {
+                leftPaddle.Y -= (int)(paddleSpeed * delta);
+            }
+            //}
+            // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.Down)) {
+                leftPaddle.Y += (int)(paddleSpeed * delta);
+            }
         }
-        //}
-        // TODO: Add your update logic here
-        if (Keyboard.GetState().IsKeyDown(Keys.Down)) {
-            leftPaddle.Y += (int)(paddleSpeed * delta);
-        }
-        ballPosition.X++;
 
+        ballPosition.X++;
         base.Update(gameTime);
     }
     protected override void Draw(GameTime gameTime) {
