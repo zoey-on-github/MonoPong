@@ -41,7 +41,6 @@ public class Game1 : Game {
         rightPaddle = new Rectangle(700, 100, 30, 100);
         ball = new Rectangle((int)ballPosition.X,(int)ballPosition.Y,70, 70);
         ballTexture = Content.Load<Texture2D>("circle");
-        // TODO: use this.Content to load your game content here
     }
     protected override void Update(GameTime gameTime) {
        var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
