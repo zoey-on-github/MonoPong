@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace MonoPong;
 
@@ -21,7 +22,6 @@ public class Game1 : Game {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        // A single-pixel texture
     }
 
     protected override void Initialize() {
@@ -49,26 +49,22 @@ public class Game1 : Game {
        }
        rightPaddle.Y = (int)ballPosition.Y;
        float ballTest = ballPosition.X += ballVelocity.X;
-       if (ball.Right <= _graphics.PreferredBackBufferWidth) {
-           ballPosition.X--;
-       }
 
        int testPositionX = leftPaddle.Top - (int)(paddleSpeed * delta);
        if (Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) {
            leftPaddle.Y -= (int)(paddleSpeed * delta);
        }
-       //}
        int testPositionY = leftPaddle.Bottom + (int)(paddleSpeed * delta);
        if (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight) {
            leftPaddle.Y += (int)(paddleSpeed * delta);
        }
-
-//        ballPosition.X++;
-        if (ballTest >= +_graphics.PreferredBackBufferWidth) {
+        // im trying to make the ball stop when it hits a corner of the screen but nothing i do is working
+        Console.WriteLine(ballTest);
+        if (ballTest <= 100) {
             ballPosition.X += ballVelocity.X;
         }
         else {
-            return;
+            ballPosition.X--;
         }
         base.Update(gameTime);
     }
@@ -80,7 +76,6 @@ public class Game1 : Game {
         _spriteBatch.Draw(ballTexture, ballPosition, ball, Color.White);
         _spriteBatch.End();
 
-        // TODO: Add your drawing code here
 
         base.Draw(gameTime);
     }
