@@ -25,7 +25,6 @@ public class Game1 : Game {
     }
 
     protected override void Initialize() {
-        // TODO: Add your initialization logic here
         paddleSpeed = 500f;
         ballPosition = new Vector2(0, 0);
         ballVelocity = new Vector2(5f, 1f);
