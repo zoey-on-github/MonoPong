@@ -48,7 +48,6 @@ public class Game1 : Game {
            Exit();
        }
        rightPaddle.Y = (int)ballPosition.Y;
-       float ballTest = ballPosition.X += ballVelocity.X;
 
        int testPositionX = leftPaddle.Top - (int)(paddleSpeed * delta);
        if (Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) {
@@ -58,13 +57,13 @@ public class Game1 : Game {
        if (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight) {
            leftPaddle.Y += (int)(paddleSpeed * delta);
        }
-        // im trying to make the ball stop when it hits a corner of the screen but nothing i do is working
+       Vector2 ballTest = ballPosition += ballVelocity;
         Console.WriteLine(ballTest);
-        if (ballTest <= 100) {
-            ballPosition.X += ballVelocity.X;
+        if (ball.Intersects(rightPaddle)) {
+            ballPosition += (ballVelocity * -1);
         }
         else {
-            ballPosition.X--;
+            ballPosition += ballVelocity;
         }
         base.Update(gameTime);
     }
