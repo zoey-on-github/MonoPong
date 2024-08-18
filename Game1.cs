@@ -56,7 +56,12 @@ public class Game1 : Game {
         int testPositionY = leftPaddle.Bottom + (int)(paddleSpeed * delta);
         if (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight) {
             leftPaddle.Y += (int)(paddleSpeed * delta);
+        }
 
+
+        if ((Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) ||
+            (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight)) {
+            base.Update(gameTime);
             Vector2 ballTest = ballPosition += ballVelocity;
             Console.WriteLine(ballTest);
             if (ball.Intersects(rightPaddle)) {
@@ -65,7 +70,6 @@ public class Game1 : Game {
             else {
                 ballPosition.X += ballVelocity.X;
             }
-            base.Update(gameTime);
         }
     }
     protected override void Draw(GameTime gameTime) {
