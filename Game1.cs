@@ -43,29 +43,30 @@ public class Game1 : Game {
         ballTexture = Content.Load<Texture2D>("circle");
     }
     protected override void Update(GameTime gameTime) {
-       var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-       if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
-           Exit();
-       }
-       rightPaddle.Y = (int)ballPosition.Y;
+        var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+            Exit();
+        }
+        rightPaddle.Y = (int)ballPosition.Y;
 
-       int testPositionX = leftPaddle.Top - (int)(paddleSpeed * delta);
-       if (Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) {
-           leftPaddle.Y -= (int)(paddleSpeed * delta);
-       }
-       int testPositionY = leftPaddle.Bottom + (int)(paddleSpeed * delta);
-       if (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight) {
-           leftPaddle.Y += (int)(paddleSpeed * delta);
-       }
-       Vector2 ballTest = ballPosition += ballVelocity;
-        Console.WriteLine(ballTest);
-        if (ball.Intersects(rightPaddle)) {
-            ballPosition += (ballVelocity * -1);
+        int testPositionX = leftPaddle.Top - (int)(paddleSpeed * delta);
+        if (Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) {
+            leftPaddle.Y -= (int)(paddleSpeed * delta);
         }
-        else {
-            ballPosition += ballVelocity;
+        int testPositionY = leftPaddle.Bottom + (int)(paddleSpeed * delta);
+        if (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight) {
+            leftPaddle.Y += (int)(paddleSpeed * delta);
+
+            Vector2 ballTest = ballPosition += ballVelocity;
+            Console.WriteLine(ballTest);
+            if (ball.Intersects(rightPaddle)) {
+                ballPosition.X += (ballVelocity.X * -1);
+            }
+            else {
+                ballPosition.X += ballVelocity.X;
+            }
+            base.Update(gameTime);
         }
-        base.Update(gameTime);
     }
     protected override void Draw(GameTime gameTime) {
         _spriteBatch.Begin();
