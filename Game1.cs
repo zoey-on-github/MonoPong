@@ -64,7 +64,7 @@ public class Game1 : Game {
             base.Update(gameTime);
             Vector2 ballTest = ballPosition += ballVelocity;
             Console.WriteLine(ballTest);
-            if (ball.Intersects(rightPaddle)) {
+            if (ballPosition.X > 15) {
                 ballPosition.X += (ballVelocity.X * -1);
             }
             else {
