@@ -61,7 +61,7 @@ public class Game1 : Game {
 
         if ((Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) ||
             (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight)) {
-           // Vector2 ballTest = ballPosition += ballVelocity;
+            float ballTest = ballPosition.X += ballVelocity.X;
             Console.WriteLine(ballPosition);
             if (ballPosition.X > 150) {
                 ballVelocity.X = ballVelocity.X * -1;
