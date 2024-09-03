@@ -64,7 +64,8 @@ public class Game1 : Game {
            // Vector2 ballTest = ballPosition += ballVelocity;
             Console.WriteLine(ballPosition);
             if (ballPosition.X > 150) {
-                ballPosition.X += (ballVelocity.X * -1);
+                ballVelocity.X = ballVelocity.X * -1;
+                ballPosition.X += ballVelocity.X;
             }
             else {
                 ballPosition.X += ballVelocity.X;
