@@ -47,7 +47,7 @@ public class Game1 : Game {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
             Exit();
         }
-        rightPaddle.Y = (int)ballPosition.Y;
+      //  rightPaddle.Y = (int)ballPosition.Y;
 
         int testPositionX = leftPaddle.Top - (int)(paddleSpeed * delta);
         if (Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) {
@@ -61,15 +61,15 @@ public class Game1 : Game {
 
         if ((Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) ||
             (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight)) {
-            base.Update(gameTime);
-            Vector2 ballTest = ballPosition += ballVelocity;
-            Console.WriteLine(ballTest);
-            if (ballPosition.X > 15) {
+           // Vector2 ballTest = ballPosition += ballVelocity;
+            Console.WriteLine(ballPosition);
+            if (ballPosition.X > 150) {
                 ballPosition.X += (ballVelocity.X * -1);
             }
             else {
                 ballPosition.X += ballVelocity.X;
             }
+            base.Update(gameTime);
         }
     }
     protected override void Draw(GameTime gameTime) {
