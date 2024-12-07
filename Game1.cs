@@ -16,6 +16,8 @@ public class Game1 : Game {
     private Rectangle rightPaddle;
     private float paddleSpeed;
     private Vector2 ballPosition;
+    private int ballPositionX;
+    private int ballPositionY;
     private Vector2 ballVelocity;
     private Rectangle ball;
     public Game1() {
@@ -27,6 +29,8 @@ public class Game1 : Game {
     protected override void Initialize() {
         paddleSpeed = 500f;
         ballPosition = new Vector2(0, 0);
+        ballPositionX = 0;
+        ballPositionY = 0;
         ballVelocity = new Vector2(5f, 1f);
         base.Initialize();
     }
@@ -39,7 +43,7 @@ public class Game1 : Game {
         });
         leftPaddle = new Rectangle(100, 100, 30, 100);
         rightPaddle = new Rectangle(700, 100, 30, 100);
-        ball = new Rectangle((int)ballPosition.X,(int)ballPosition.Y,70, 70);
+        ball = new Rectangle(ballPositionX,ballPositionY,70, 70);
         ballTexture = Content.Load<Texture2D>("circle");
     }
     protected override void Update(GameTime gameTime) {
@@ -47,7 +51,7 @@ public class Game1 : Game {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
             Exit();
         }
-        rightPaddle.Y = (int)ballPosition.Y;
+        rightPaddle.Y = ballPositionY;
 
         int testPositionX = leftPaddle.Top - (int)(paddleSpeed * delta);
         if (Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) {
@@ -61,20 +65,27 @@ public class Game1 : Game {
 
         if ((Keyboard.GetState().IsKeyDown(Keys.Up) && testPositionX >= 0) ||
             (Keyboard.GetState().IsKeyDown(Keys.Down) && testPositionY <= _graphics.PreferredBackBufferHeight)) {
-            float ballTest = ballPosition.X += ballVelocity.X;
+            ball.X = ballPositionX;
+            ball.Y = ballPositionY;
             Console.WriteLine(ballPosition);
+            Console.WriteLine(ball.X);
             if (ball.Intersects(rightPaddle)) {
-                Console.WriteLine("touching");
+                ballVelocity.X = ballVelocity.X * -1;
+                ballPositionX += (int)ballVelocity.X;
+            }
+            if (ball.Intersects(leftPaddle)) {
+                ballVelocity.X = ballVelocity.X * -1;
+                ballPositionX += (int)ballVelocity.X;
             }
             if (ballPosition.X < 0) {
                 ballVelocity.X = ballVelocity.X * -1;
-                ballPosition.X += ballVelocity.X;
+                ballPositionX += (int)ballVelocity.X;
             } else if(ballPosition.X >= _graphics.PreferredBackBufferWidth) {
                 ballVelocity.X = ballVelocity.X * -1;
-                ballPosition.X += ballVelocity.X;
+                ballPositionX += (int)ballVelocity.X;
             }
             else {
-                ballPosition.X += ballVelocity.X;
+                ballPositionX += (int)ballVelocity.X;
             }
             base.Update(gameTime);
         }
@@ -84,9 +95,8 @@ public class Game1 : Game {
         GraphicsDevice.Clear(Color.Black);
         _spriteBatch.Draw(pixel, leftPaddle, Color.White);
         _spriteBatch.Draw(pixel, rightPaddle, Color.White);
-        _spriteBatch.Draw(ballTexture, ballPosition, ball, Color.White);
+        _spriteBatch.Draw(ballTexture, ball, Color.White);
         _spriteBatch.End();
-
 
         base.Draw(gameTime);
     }
